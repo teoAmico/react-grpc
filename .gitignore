@@ -1,2 +1,5 @@
 .idea
 .DS_Store
+
+mongo/data/config
+mongo/data/db
