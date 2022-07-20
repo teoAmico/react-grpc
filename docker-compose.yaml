@@ -1,0 +1,95 @@
+version: "3.4"
+
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    ports:
+      - 80:3000
+    container_name: frontend
+    env_file:
+      - ./frontend.env
+    volumes:
+      - frontend-data:/app
+      - frontend-node-modules:/app/node_modules
+    networks:
+      - dev-network
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    ports:
+      - 9000:9000
+    container_name: backend
+    env_file:
+      - ./backend.env
+    volumes:
+      - backend-data:/app
+    networks:
+      - dev-network
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    env_file:
+      - ./mongo.env
+    volumes:
+      - type: volume
+        source: mongo-init
+        target: /docker-entrypoint-initdb.d
+        read_only: true
+      - mongo-data:/data/db
+      - mongo-config:/data/configdb
+    networks:
+      - dev-network
+
+volumes:
+  frontend-node-modules:
+
+  frontend-data:
+      driver: local
+      driver_opts:
+        type: none
+        device: $PWD/frontend/app
+        o: bind
+
+  backend-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/backend/app
+      o: bind
+
+  mongo-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/mongo/data/db
+      o: bind
+
+  mongo-init:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/mongo/init
+      o: bind
+
+  mongo-config:
+    driver: local
+    driver_opts:
+      type: none
+      device: $PWD/mongo/data/config
+      o: bind
+
+networks:
+  dev-network:
+    driver: bridge
