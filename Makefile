@@ -16,8 +16,17 @@ app-build:
 app-run:
 	go run backend/app/cmd/api/main.go
 
-gen-protos:
+gen-go-protos:
 	rm -f backend/app/pkg/api/protos/*.go
-	protoc --go_out=pkg --go_opt=paths=source_relative \
-    --go-grpc_out=pkg --go-grpc_opt=paths=source_relative \
-    backend/app/api/protos/*.proto
+	protoc --go_out=backend/app/pkg --go_opt=paths=source_relative \
+    --go-grpc_out=backend/app/pkg --go-grpc_opt=paths=source_relative \
+    protos/*.proto
+
+gen-ts-protos:
+	rm -f frontend/app/src/grpc/protos/*.ts
+	rm -f frontend/app/src/grpc/protos/*.js
+	protoc --plugin="protoc-gen-ts=frontend/app/node_modules/.bin/protoc-gen-ts" \
+		--js_out="import_style=commonjs,binary:frontend/app/src/grpc" \
+		--ts_out="service=grpc-web:frontend/app/src/grpc" \
+        protos/*.proto
+
