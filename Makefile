@@ -17,7 +17,7 @@ app-run:
 	go run backend/app/cmd/api/main.go
 
 gen-go-protos:
-	rm -f backend/app/pkg/api/protos/*.go
+	rm -f backend/app/pkg/protos/*.go
 	protoc --go_out=backend/app/pkg --go_opt=paths=source_relative \
     --go-grpc_out=backend/app/pkg --go-grpc_opt=paths=source_relative \
     protos/*.proto
