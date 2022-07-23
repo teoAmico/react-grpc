@@ -7,3 +7,5 @@
 
 ```yarn add ts-protoc-gen```
 
+https://github.com/stephenh/ts-proto
+

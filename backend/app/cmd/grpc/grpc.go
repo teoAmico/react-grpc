@@ -1,7 +1,9 @@
 package grpc
 
 import (
+	"demo/internal/service"
 	"demo/internal/util"
+	pb "demo/pkg/protos"
 	"github.com/hashicorp/go-hclog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
@@ -28,11 +30,13 @@ func RunGrpcServer(config util.Config, log hclog.Logger) {
 	hs.SetServingStatus("", healthpb.HealthCheckResponse_SERVING)
 	healthpb.RegisterHealthServer(gs, hs)
 
-	//s, err := service.NewServer(config, log)
-	//if err != nil {
-	//	log.Error("Unable to create a server", "error", err)
-	//	os.Exit(1)
-	//}
+	srv, err := service.NewServer(config, log)
+	if err != nil {
+		log.Error("Unable to create a server", "error", err)
+		os.Exit(1)
+	}
+
+	pb.RegisterGreeterServer(gs, srv)
 
 	if config.AppEnv == "dev" {
 		reflection.Register(gs)
