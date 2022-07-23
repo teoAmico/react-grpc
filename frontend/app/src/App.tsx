@@ -8,27 +8,28 @@ import {
 
 function App() {
   const [greeting, setGreeting] = useState("Not Connected");
-  const greeterClient = new GreeterClient("http://localhost:8080", undefined);
-  const sayHello = (name: string): Promise<HelloReply> => {
-    return new Promise((resolve, reject) => {
-      const request = new HelloRequest();
-      request.setName(name);
-      greeterClient.sayHello(
-        request,
-        (err: ServiceError | null, response: HelloReply | null) => {
-          if (!err && null !== response) {
-            resolve(response);
-          } else {
-            reject(err);
-          }
-        }
-      );
-    });
-  };
 
   useEffect(() => {
-    const promise = sayHello("Matteo");
-    promise.then(
+    console.log("test");
+    const greeterClient = new GreeterClient("http://localhost:8080", undefined);
+    const sayHello = (name: string): Promise<HelloReply> => {
+      return new Promise((resolve, reject) => {
+        const request = new HelloRequest();
+        request.setName(name);
+        greeterClient.sayHello(
+          request,
+          (err: ServiceError | null, response: HelloReply | null) => {
+            if (!err && null !== response) {
+              resolve(response);
+            } else {
+              reject(err);
+            }
+          }
+        );
+      });
+    };
+
+    sayHello("Matteo").then(
       function (result) {
         setGreeting(result.getMessage());
       },

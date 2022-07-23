@@ -9,7 +9,7 @@ services:
       - "80:3000"
     container_name: frontend
     env_file:
-      - ./frontend.env
+      - env/frontend.env
     volumes:
       - frontend-data:/app
       - frontend-node-modules:/app/node_modules
@@ -26,7 +26,7 @@ services:
       - "9000:9000"
     container_name: backend
     env_file:
-      - ./backend.env
+      - env/backend.env
     volumes:
       - backend-data:/app
     networks:
@@ -41,7 +41,7 @@ services:
     ports:
       - "27017:27017"
     env_file:
-      - ./mongo.env
+      - env/mongo.env
     volumes:
       - type: volume
         source: mongo-init
