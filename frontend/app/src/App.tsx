@@ -10,7 +10,6 @@ function App() {
   const [greeting, setGreeting] = useState("Not Connected");
 
   useEffect(() => {
-    console.log("test");
     const greeterClient = new GreeterClient("http://localhost:8080", undefined);
     const sayHello = (name: string): Promise<HelloReply> => {
       return new Promise((resolve, reject) => {
