@@ -1,5 +1,8 @@
 FROM golang:1.18.4-alpine3.16
 
+# Install Reflex for development
+RUN go install github.com/cespare/reflex@latest
+
 # Add a work directory
 WORKDIR /app
 
@@ -11,9 +14,6 @@ RUN go mod download
 
 # Copy app files
 COPY ./app .
-
-# Install Reflex for development
-RUN go install github.com/cespare/reflex@latest
 
 # Expose port
 EXPOSE 9000

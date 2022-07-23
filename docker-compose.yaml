@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       context: ./frontend
     ports:
-      - 80:3000
+      - "80:3000"
     container_name: frontend
     env_file:
       - ./frontend.env
@@ -23,7 +23,7 @@ services:
       dockerfile: Dockerfile
       context: ./backend
     ports:
-      - 9000:9000
+      - "9000:9000"
     container_name: backend
     env_file:
       - ./backend.env
@@ -51,6 +51,18 @@ services:
       - mongo-config:/data/configdb
     networks:
       - dev-network
+
+  envoy:
+    image: envoyproxy/envoy-dev:36e1878e73d68166a073c0e8324faa86bb6208e3
+    container_name: envoy
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml
+    networks:
+      - dev-network
+    depends_on:
+      - backend
 
 volumes:
   frontend-node-modules:

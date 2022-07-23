@@ -1,24 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { grpc } from "@improbable-eng/grpc-web";
+import { useEffect, useState } from "react";
+import { HelloRequest, HelloReply } from "./grpc/protos/helloworld_pb";
+import {
+  GreeterClient,
+  ServiceError,
+} from "./grpc/protos/helloworld_pb_service";
 
 function App() {
+  const [greeting, setGreeting] = useState("Not Connected");
+  const greeterClient = new GreeterClient("http://localhost:8080", undefined);
+  const sayHello = (name: string): Promise<HelloReply> => {
+    return new Promise((resolve, reject) => {
+      const request = new HelloRequest();
+      request.setName(name);
+      greeterClient.sayHello(
+        request,
+        (err: ServiceError | null, response: HelloReply | null) => {
+          if (!err && null !== response) {
+            resolve(response);
+          } else {
+            reject(err);
+          }
+        }
+      );
+    });
+  };
+
+  useEffect(() => {
+    const promise = sayHello("Matteo");
+    promise.then(
+      function (result) {
+        setGreeting(result.getMessage());
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Test GRPC: {greeting}</h1>
     </div>
   );
 }
