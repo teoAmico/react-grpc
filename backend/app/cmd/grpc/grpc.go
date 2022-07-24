@@ -22,7 +22,8 @@ func RunGrpcServer(config util.Config, log hclog.Logger) {
 		os.Exit(1)
 	}
 
-	gs := grpc.NewServer()
+	//initialise grpc server with interceptors
+	gs := grpc.NewServer(grpc.UnaryInterceptor(unaryInterceptor))
 
 	hs := health.NewServer()
 
@@ -36,6 +37,7 @@ func RunGrpcServer(config util.Config, log hclog.Logger) {
 		os.Exit(1)
 	}
 
+	//Register servers here
 	pb.RegisterGreeterServer(gs, srv)
 
 	if config.AppEnv == "dev" {
