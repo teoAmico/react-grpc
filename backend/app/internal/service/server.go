@@ -8,7 +8,9 @@ import (
 )
 
 type Server struct {
+	//add unimplemented server here
 	pb.UnimplementedGreeterServer
+	pb.UnimplementedUserServer
 	Config util.Config
 	Log    hclog.Logger
 }

@@ -39,6 +39,7 @@ func RunGrpcServer(config util.Config, log hclog.Logger) {
 
 	//Register servers here
 	pb.RegisterGreeterServer(gs, srv)
+	pb.RegisterUserServer(gs, srv)
 
 	if config.AppEnv == "dev" {
 		reflection.Register(gs)

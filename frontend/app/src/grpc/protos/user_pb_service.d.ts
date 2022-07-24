@@ -1,21 +1,21 @@
 // package: pb
-// file: protos/helloworld.proto
+// file: protos/user.proto
 
-import * as protos_helloworld_pb from "../protos/helloworld_pb";
+import * as protos_user_pb from "../protos/user_pb";
 import {grpc} from "@improbable-eng/grpc-web";
 
-type GreeterSayHello = {
+type UserLogin = {
   readonly methodName: string;
-  readonly service: typeof Greeter;
+  readonly service: typeof User;
   readonly requestStream: false;
   readonly responseStream: false;
-  readonly requestType: typeof protos_helloworld_pb.HelloRequest;
-  readonly responseType: typeof protos_helloworld_pb.HelloReply;
+  readonly requestType: typeof protos_user_pb.LoginRequest;
+  readonly responseType: typeof protos_user_pb.LoginResponse;
 };
 
-export class Greeter {
+export class User {
   static readonly serviceName: string;
-  static readonly SayHello: GreeterSayHello;
+  static readonly Login: UserLogin;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -46,18 +46,18 @@ interface BidirectionalStream<ReqT, ResT> {
   on(type: 'status', handler: (status: Status) => void): BidirectionalStream<ReqT, ResT>;
 }
 
-export class GreeterClient {
+export class UserClient {
   readonly serviceHost: string;
 
   constructor(serviceHost: string, options?: grpc.RpcOptions);
-  sayHello(
-    requestMessage: protos_helloworld_pb.HelloRequest,
+  login(
+    requestMessage: protos_user_pb.LoginRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: protos_helloworld_pb.HelloReply|null) => void
+    callback: (error: ServiceError|null, responseMessage: protos_user_pb.LoginResponse|null) => void
   ): UnaryResponse;
-  sayHello(
-    requestMessage: protos_helloworld_pb.HelloRequest,
-    callback: (error: ServiceError|null, responseMessage: protos_helloworld_pb.HelloReply|null) => void
+  login(
+    requestMessage: protos_user_pb.LoginRequest,
+    callback: (error: ServiceError|null, responseMessage: protos_user_pb.LoginResponse|null) => void
   ): UnaryResponse;
 }
 

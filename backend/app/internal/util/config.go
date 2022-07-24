@@ -10,6 +10,8 @@ import (
 type Config struct {
 	GrpcServerAddress string `mapstructure:"GRPC_SERVER_ADDRESS"`
 	AppEnv            string `mapstructure:"APP_ENV"`
+	PrivateKeyPath    string `mapstructure:"AUTH_PRIVATE_KEY_PATH"`
+	PublicKeyPath     string `mapstructure:"AUTH_PUBLIC_KEY_PATH"`
 }
 
 func LoadConfig(log hclog.Logger, path string) (config Config) {
