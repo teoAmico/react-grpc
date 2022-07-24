@@ -58,6 +58,7 @@ services:
     container_name: envoy
     ports:
       - "8080:8080"
+      - "9901:9901"
     volumes:
       - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml
     networks:
