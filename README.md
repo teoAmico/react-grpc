@@ -1,5 +1,12 @@
 # Demo Project in react + gRPC with Go + mongodb
 
+### Resources:
+
+protobuf: https://developers.google.com/protocol-buffers
+
+grpc: https://grpc.io/docs/
+
+grpc-web: https://grpc.io/docs/platforms/web/
 
 ### library frontend
 
