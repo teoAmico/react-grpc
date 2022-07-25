@@ -8,6 +8,8 @@ grpc: https://grpc.io/docs/
 
 grpc-web: https://grpc.io/docs/platforms/web/
 
+envoy (proxy server): https://www.envoyproxy.io/docs/envoy/latest/
+
 ### library frontend
 
 ```yarn add grpc```
