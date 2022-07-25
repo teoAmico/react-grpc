@@ -1,4 +1,4 @@
-// source: protos/user.proto
+// source: protos/auth.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -257,7 +257,7 @@ proto.pb.LoginResponse.prototype.toObject = function(opt_includeInstance) {
  */
 proto.pb.LoginResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    jwttoken: jspb.Message.getFieldWithDefault(msg, 1, "")
+    accesstoken: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -296,7 +296,7 @@ proto.pb.LoginResponse.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setJwttoken(value);
+      msg.setAccesstoken(value);
       break;
     default:
       reader.skipField();
@@ -327,7 +327,7 @@ proto.pb.LoginResponse.prototype.serializeBinary = function() {
  */
 proto.pb.LoginResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getJwttoken();
+  f = message.getAccesstoken();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -338,10 +338,10 @@ proto.pb.LoginResponse.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string jwtToken = 1;
+ * optional string accessToken = 1;
  * @return {string}
  */
-proto.pb.LoginResponse.prototype.getJwttoken = function() {
+proto.pb.LoginResponse.prototype.getAccesstoken = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -350,7 +350,7 @@ proto.pb.LoginResponse.prototype.getJwttoken = function() {
  * @param {string} value
  * @return {!proto.pb.LoginResponse} returns this
  */
-proto.pb.LoginResponse.prototype.setJwttoken = function(value) {
+proto.pb.LoginResponse.prototype.setAccesstoken = function(value) {
   return jspb.Message.setProto3StringField(this, 1, value);
 };
 

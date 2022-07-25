@@ -1,23 +1,22 @@
 import { grpc } from "@improbable-eng/grpc-web";
-import { resolve } from "node:path/win32";
 import { useEffect, useState } from "react";
 import { HelloRequest, HelloReply } from "./grpc/protos/helloworld_pb";
 import {
   GreeterClient,
   ServiceError,
 } from "./grpc/protos/helloworld_pb_service";
-import { LoginRequest, LoginResponse } from "./grpc/protos/user_pb";
-import { UserClient } from "./grpc/protos/user_pb_service";
+import { LoginRequest, LoginResponse } from "./grpc/protos/auth_pb";
+import { AuthClient } from "./grpc/protos/auth_pb_service";
 
 const greeterClient = new GreeterClient("http://localhost:8080");
-const userClient = new UserClient("http://localhost:8080");
+const authClient = new AuthClient("http://localhost:8080");
 
 const login = (username: string, pwd: string): Promise<LoginResponse> => {
   return new Promise((resolve, reject) => {
     const request = new LoginRequest();
     request.setUsername(username);
     request.setPassword(pwd);
-    userClient.login(
+      authClient.login(
       request,
       (err: ServiceError | null, response: LoginResponse | null) => {
         if (!err && null !== response) {
@@ -57,7 +56,7 @@ function App() {
     (async () => {
       await login("Admin", "password").then(
         function (result) {
-          sayHello("Admin", result.getJwttoken()).then(
+          sayHello("Admin", result.getAccesstoken()).then(
             function (result) {
               setGreeting(result.getMessage());
             },

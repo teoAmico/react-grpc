@@ -1,36 +1,36 @@
 // package: pb
-// file: protos/user.proto
+// file: protos/auth.proto
 
-var protos_user_pb = require("../protos/user_pb");
+var protos_auth_pb = require("../protos/auth_pb");
 var grpc = require("@improbable-eng/grpc-web").grpc;
 
-var User = (function () {
-  function User() {}
-  User.serviceName = "pb.User";
-  return User;
+var Auth = (function () {
+  function Auth() {}
+  Auth.serviceName = "pb.Auth";
+  return Auth;
 }());
 
-User.Login = {
+Auth.Login = {
   methodName: "Login",
-  service: User,
+  service: Auth,
   requestStream: false,
   responseStream: false,
-  requestType: protos_user_pb.LoginRequest,
-  responseType: protos_user_pb.LoginResponse
+  requestType: protos_auth_pb.LoginRequest,
+  responseType: protos_auth_pb.LoginResponse
 };
 
-exports.User = User;
+exports.Auth = Auth;
 
-function UserClient(serviceHost, options) {
+function AuthClient(serviceHost, options) {
   this.serviceHost = serviceHost;
   this.options = options || {};
 }
 
-UserClient.prototype.login = function login(requestMessage, metadata, callback) {
+AuthClient.prototype.login = function login(requestMessage, metadata, callback) {
   if (arguments.length === 2) {
     callback = arguments[1];
   }
-  var client = grpc.unary(User.Login, {
+  var client = grpc.unary(Auth.Login, {
     request: requestMessage,
     host: this.serviceHost,
     metadata: metadata,
@@ -57,5 +57,5 @@ UserClient.prototype.login = function login(requestMessage, metadata, callback) 
   };
 };
 
-exports.UserClient = UserClient;
+exports.AuthClient = AuthClient;
 

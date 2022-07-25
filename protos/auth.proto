@@ -10,9 +10,9 @@ message LoginRequest {
 }
 
 message  LoginResponse {
-  string jwtToken = 1;
+  string accessToken = 1;
 }
 
-service User {
+service Auth {
   rpc Login (LoginRequest) returns (LoginResponse);
 }

@@ -1,21 +1,21 @@
 // package: pb
-// file: protos/user.proto
+// file: protos/auth.proto
 
-import * as protos_user_pb from "../protos/user_pb";
+import * as protos_auth_pb from "../protos/auth_pb";
 import {grpc} from "@improbable-eng/grpc-web";
 
-type UserLogin = {
+type AuthLogin = {
   readonly methodName: string;
-  readonly service: typeof User;
+  readonly service: typeof Auth;
   readonly requestStream: false;
   readonly responseStream: false;
-  readonly requestType: typeof protos_user_pb.LoginRequest;
-  readonly responseType: typeof protos_user_pb.LoginResponse;
+  readonly requestType: typeof protos_auth_pb.LoginRequest;
+  readonly responseType: typeof protos_auth_pb.LoginResponse;
 };
 
-export class User {
+export class Auth {
   static readonly serviceName: string;
-  static readonly Login: UserLogin;
+  static readonly Login: AuthLogin;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -46,18 +46,18 @@ interface BidirectionalStream<ReqT, ResT> {
   on(type: 'status', handler: (status: Status) => void): BidirectionalStream<ReqT, ResT>;
 }
 
-export class UserClient {
+export class AuthClient {
   readonly serviceHost: string;
 
   constructor(serviceHost: string, options?: grpc.RpcOptions);
   login(
-    requestMessage: protos_user_pb.LoginRequest,
+    requestMessage: protos_auth_pb.LoginRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: protos_user_pb.LoginResponse|null) => void
+    callback: (error: ServiceError|null, responseMessage: protos_auth_pb.LoginResponse|null) => void
   ): UnaryResponse;
   login(
-    requestMessage: protos_user_pb.LoginRequest,
-    callback: (error: ServiceError|null, responseMessage: protos_user_pb.LoginResponse|null) => void
+    requestMessage: protos_auth_pb.LoginRequest,
+    callback: (error: ServiceError|null, responseMessage: protos_auth_pb.LoginResponse|null) => void
   ): UnaryResponse;
 }
 

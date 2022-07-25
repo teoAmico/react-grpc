@@ -25,7 +25,7 @@ func (s *Server) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResp
 	}
 
 	response := &pb.LoginResponse{
-		JwtToken: token,
+		AccessToken: token,
 	}
 	return response, nil
 }

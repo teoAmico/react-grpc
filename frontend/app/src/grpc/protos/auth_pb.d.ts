@@ -1,5 +1,5 @@
 // package: pb
-// file: protos/user.proto
+// file: protos/auth.proto
 
 import * as jspb from "google-protobuf";
 
@@ -28,8 +28,8 @@ export namespace LoginRequest {
 }
 
 export class LoginResponse extends jspb.Message {
-  getJwttoken(): string;
-  setJwttoken(value: string): void;
+  getAccesstoken(): string;
+  setAccesstoken(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): LoginResponse.AsObject;
@@ -43,7 +43,7 @@ export class LoginResponse extends jspb.Message {
 
 export namespace LoginResponse {
   export type AsObject = {
-    jwttoken: string,
+    accesstoken: string,
   }
 }
 
