@@ -3,3 +3,4 @@
 
 mongo/data/config
 mongo/data/db
+/certs/*.pem

@@ -30,3 +30,8 @@ gen-ts-protos:
 		--ts_out="service=grpc-web:frontend/app/src/grpc" \
         protos/*.proto
 
+cert:
+	cd certs; ./gen.sh; cd ..
+
+.PHONY: jump-in up down app-test app-build app-run gen-go-protos gen-ts-protos
+

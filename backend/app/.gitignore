@@ -1,5 +1,5 @@
 build/api
 vendor/
 app.env
-openssl/*
-!openssl/.gitkeep
+certs/*
+!certs/.gitkeep
