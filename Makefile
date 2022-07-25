@@ -34,4 +34,3 @@ cert:
 	cd certs; ./gen.sh; cd ..
 
 .PHONY: jump-in up down app-test app-build app-run gen-go-protos gen-ts-protos
-
